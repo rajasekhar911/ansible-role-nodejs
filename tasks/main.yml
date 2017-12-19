@@ -39,3 +39,19 @@
   npm:
     path: "{{ nodejs_package_json_path }}"
   when: nodejs_package_json_path is defined and nodejs_package_json_path
+
+- name: install npm modules
+  become: yes
+  command: "npm install"
+  args:
+    chdir: "{{ subzero_deploy_path }}/app"
+
+- name: Create systemd config
+  template: src=forever.service.j2 dest=/etc/systemd/system/{{ subzero_deploy_app_name }}.service
+  register: service_file
+
+- shell: systemctl daemon-reload
+  when: service_file.changed
+
+- name: restart service
+  systemd: name={{ subzero_deploy_app_name }} state=restarted
