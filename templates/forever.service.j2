@@ -1,14 +1,14 @@
 [Unit]
-Description=Subzero NodeJS agent
+Description=NodeJS App agent
 After=rc-local.service
 
 [Service]
 Type=simple
-WorkingDirectory={{ subzero_deploy_path }}/app/
-ExecStart=/bin/bash -c 'exec /usr/bin/node {{ subzero_deploy_path }}/app/index.js 2>&1 >> {{ subzero_deploy_path }}/console.log'
+WorkingDirectory={{ app_deploy_path }}/app/
+ExecStart=/bin/bash -c 'exec /usr/bin/node {{ app_deploy_path }}/app/index.js 2>&1 >> {{ app_deploy_path }}/console.log'
 Restart=always
 RestartSec=10
-SyslogIdentifier={{ subzero_deploy_app_name }}
+SyslogIdentifier={{ app_deploy_name }}
 User=ubuntu
 Environment=NODE_ENV={{ node_env }}
 
