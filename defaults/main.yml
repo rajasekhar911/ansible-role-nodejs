@@ -24,3 +24,9 @@ nodejs_npm_global_packages: []
 
 # The path of a package.json file used to install packages globally.
 nodejs_package_json_path: ""
+
+# Path to deploy the app
+app_deploy_path: ''
+
+# Identifier of app used for systemd service and other places
+app_deploy_name: ''

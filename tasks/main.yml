@@ -44,14 +44,14 @@
   become: yes
   command: "npm install"
   args:
-    chdir: "{{ subzero_deploy_path }}/app"
+    chdir: "{{ app_deploy_path }}/app"
 
 - name: Create systemd config
-  template: src=forever.service.j2 dest=/etc/systemd/system/{{ subzero_deploy_app_name }}.service
+  template: src=forever.service.j2 dest=/etc/systemd/system/{{ app_deploy_name }}.service
   register: service_file
 
 - shell: systemctl daemon-reload
   when: service_file.changed
 
 - name: restart service
-  systemd: name={{ subzero_deploy_app_name }} state=restarted
+  systemd: name={{ app_deploy_name }} state=restarted
